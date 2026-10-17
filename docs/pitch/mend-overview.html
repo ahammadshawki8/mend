@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Mend Overview</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
   :root {
@@ -18,12 +18,12 @@
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
-    font-family: Inter, Arial, sans-serif; font-size: 10.5pt; line-height: 1.5; }
+    font-family: Inter, Arial, sans-serif; font-size: 10.5pt; line-height: 1.55; font-feature-settings: "kern", "liga"; -webkit-font-smoothing: antialiased; }
   .page { width: 210mm; height: 297mm; padding: 18mm 18mm 16mm; position: relative;
     page-break-after: always; overflow: hidden; background: var(--paper); }
   .page:last-child { page-break-after: auto; }
-  h1, h2, h3 { font-family: Fraunces, Georgia, serif; margin: 0; font-weight: 600; }
-  h2 { font-size: 24pt; line-height: 1.15; margin-bottom: 4mm; }
+  h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; margin: 0; font-weight: 600; }
+  h2 { font-size: 23pt; line-height: 1.18; margin-bottom: 4mm; letter-spacing: -0.01em; }
   h3 { font-size: 13pt; margin-bottom: 2mm; }
   p { margin: 0 0 3mm; }
   .kicker { font-size: 8.5pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
@@ -38,7 +38,7 @@
   .card p:last-child { margin-bottom: 0; }
   ul { margin: 0; padding-left: 5mm; }
   li { margin-bottom: 1.6mm; }
-  .big { font-family: Fraunces, Georgia, serif; font-size: 26pt; font-weight: 700; color: var(--gold); line-height: 1; }
+  .big { font-family: Inter, Arial, sans-serif; font-size: 24pt; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--gold); line-height: 1; }
   .small { font-size: 8.5pt; color: var(--muted); }
   .pill { display: inline-block; font-size: 8pt; font-weight: 600; padding: 1mm 3mm; border-radius: 10mm;
     background: var(--gold-soft); color: var(--ink); margin: 0 1.5mm 1.5mm 0; }
@@ -46,8 +46,8 @@
 
   /* Cover */
   .cover { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 30mm; }
-  .cover h1 { font-size: 64pt; letter-spacing: 0.02em; margin-top: 10mm; }
-  .cover .tag { font-family: Fraunces, Georgia, serif; font-size: 18pt; color: var(--muted); font-style: italic; margin-top: 2mm; }
+  .cover h1 { font-size: 60pt; letter-spacing: 0.01em; font-weight: 600; margin-top: 10mm; }
+  .cover .tag { font-family: "Source Serif 4", Georgia, serif; font-size: 17pt; color: var(--muted); font-style: italic; font-weight: 400; margin-top: 2mm; }
   .cover .for { margin-top: 16mm; font-size: 11pt; max-width: 130mm; color: var(--ink); }
   .cover .meta { position: absolute; bottom: 22mm; left: 20mm; right: 20mm; line-height: 1.7; text-align: center; font-size: 9.5pt; color: var(--muted); }
 
@@ -75,12 +75,12 @@
 
   .person { display: grid; grid-template-columns: 16mm 1fr; gap: 4mm; align-items: start; }
   .avatar { width: 16mm; height: 16mm; border-radius: 50%; background: var(--ink); color: var(--paper);
-    display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 14pt; font-weight: 600; }
+    display: flex; align-items: center; justify-content: center; font-family: Inter, Arial, sans-serif; font-size: 12pt; font-weight: 600; letter-spacing: 0.04em; }
   .wins li { margin-bottom: 1.2mm; }
   .check li { list-style: none; position: relative; padding-left: 1mm; }
   .check { padding-left: 5mm; }
   .check li::before { content: ""; position: absolute; left: -5mm; top: 1.6mm; width: 2.6mm; height: 2.6mm; border-radius: 50%; background: var(--gold); }
-  .quote { font-family: Fraunces, Georgia, serif; font-size: 14pt; font-style: italic; color: var(--ink);
+  .quote { font-family: "Source Serif 4", Georgia, serif; font-size: 14pt; font-style: italic; color: var(--ink);
     border-left: 1.2mm solid var(--gold); padding: 1mm 0 1mm 5mm; margin: 2mm 0 7mm; }
 </style>
 </head>
@@ -331,7 +331,7 @@
   </div>
 
   <div class="card" style="margin-top:6mm; text-align:center">
-    <p style="font-family:Fraunces,Georgia,serif;font-size:15pt;margin-bottom:2mm">Thank you for considering it.</p>
+    <p style="font-family:"Source Serif 4",Georgia,serif;font-size:15pt;margin-bottom:2mm">Thank you for considering it.</p>
     <p class="small" style="margin:0">Questions are very welcome. Reply in our message thread, or reach us through the profiles on the previous page.<br>Follow the project at github.com/ahammadshawki8/mend</p>
   </div>
   <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Ahammad Shawki and Mohammad Ashfaqul Hasan, BUET CSE</span></div>
