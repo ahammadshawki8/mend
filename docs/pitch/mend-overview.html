@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mend Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --paper: #F7F2E8;
+    --ink: #2A2420;
+    --muted: #6F655C;
+    --gold: #C49A2C;
+    --gold-soft: #E9D49A;
+    --clay: #B4614A;
+    --line: #E2D8C6;
+    --card: #FFFDF8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+    font-family: Inter, Arial, sans-serif; font-size: 10.5pt; line-height: 1.5; }
+  .page { width: 210mm; height: 297mm; padding: 18mm 18mm 16mm; position: relative;
+    page-break-after: always; overflow: hidden; background: var(--paper); }
+  .page:last-child { page-break-after: auto; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; margin: 0; font-weight: 600; }
+  h2 { font-size: 24pt; line-height: 1.15; margin-bottom: 4mm; }
+  h3 { font-size: 13pt; margin-bottom: 2mm; }
+  p { margin: 0 0 3mm; }
+  .kicker { font-size: 8.5pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    font-weight: 700; margin-bottom: 3mm; }
+  .lead { font-size: 12pt; color: var(--muted); max-width: 150mm; margin-bottom: 7mm; }
+  .footer { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; display: flex;
+    justify-content: space-between; font-size: 8pt; color: var(--muted);
+    border-top: 1px solid var(--line); padding-top: 2.5mm; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5mm; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 4mm; padding: 5mm; }
+  .card p:last-child { margin-bottom: 0; }
+  ul { margin: 0; padding-left: 5mm; }
+  li { margin-bottom: 1.6mm; }
+  .big { font-family: Fraunces, Georgia, serif; font-size: 26pt; font-weight: 700; color: var(--gold); line-height: 1; }
+  .small { font-size: 8.5pt; color: var(--muted); }
+  .pill { display: inline-block; font-size: 8pt; font-weight: 600; padding: 1mm 3mm; border-radius: 10mm;
+    background: var(--gold-soft); color: var(--ink); margin: 0 1.5mm 1.5mm 0; }
+  .gold { color: var(--gold); }
+
+  /* Cover */
+  .cover { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 30mm; }
+  .cover h1 { font-size: 64pt; letter-spacing: 0.02em; margin-top: 10mm; }
+  .cover .tag { font-family: Fraunces, Georgia, serif; font-size: 18pt; color: var(--muted); font-style: italic; margin-top: 2mm; }
+  .cover .for { margin-top: 16mm; font-size: 11pt; max-width: 130mm; color: var(--ink); }
+  .cover .meta { position: absolute; bottom: 22mm; left: 20mm; right: 20mm; line-height: 1.7; text-align: center; font-size: 9.5pt; color: var(--muted); }
+
+  /* Loop */
+  .loop { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; margin: 4mm 0 7mm; }
+  .step { text-align: center; }
+  .step svg { width: 26mm; height: 26mm; }
+  .step b { display: block; font-size: 10pt; margin-top: 1mm; }
+  .step span { font-size: 8.5pt; color: var(--muted); display: block; line-height: 1.35; }
+
+  /* Bars */
+  .bar-row { display: grid; grid-template-columns: 50mm 1fr 12mm; align-items: center; gap: 3mm; margin-bottom: 2.5mm; font-size: 9.5pt; }
+  .bar { height: 6mm; border-radius: 1.5mm; background: var(--line); position: relative; overflow: hidden; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 1.5mm; background: #CFC3AE; }
+  .bar i.hl { background: var(--gold); }
+
+  /* Timeline */
+  .tl { position: relative; margin: 8mm 0 4mm; height: 30mm; }
+  .tl .axis { position: absolute; left: 0; right: 0; top: 12mm; height: 1.2mm; background: var(--line); border-radius: 1mm; }
+  .tl .mk { position: absolute; top: 0; transform: translateX(-50%); text-align: center; width: 26mm; font-size: 8pt; }
+  .tl .mk .dot { width: 4mm; height: 4mm; border-radius: 50%; background: #CFC3AE; margin: 10.6mm auto 2mm; }
+  .tl .mk.q .dot { background: var(--gold); width: 5mm; height: 5mm; margin-top: 10.1mm; box-shadow: 0 0 0 1.5mm var(--gold-soft); }
+  .tl .mk .d { font-weight: 700; display: block; }
+  .tl .mk .top { position: absolute; top: 0; left: 0; right: 0; font-weight: 600; color: var(--muted); }
+
+  .person { display: grid; grid-template-columns: 16mm 1fr; gap: 4mm; align-items: start; }
+  .avatar { width: 16mm; height: 16mm; border-radius: 50%; background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 14pt; font-weight: 600; }
+  .wins li { margin-bottom: 1.2mm; }
+  .check li { list-style: none; position: relative; padding-left: 1mm; }
+  .check { padding-left: 5mm; }
+  .check li::before { content: ""; position: absolute; left: -5mm; top: 1.6mm; width: 2.6mm; height: 2.6mm; border-radius: 50%; background: var(--gold); }
+  .quote { font-family: Fraunces, Georgia, serif; font-size: 14pt; font-style: italic; color: var(--ink);
+    border-left: 1.2mm solid var(--gold); padding: 1mm 0 1mm 5mm; margin: 2mm 0 7mm; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<section class="page cover">
+  <div class="kicker">Meta VR Start Developer Competition 2026</div>
+  <svg width="120mm" height="78mm" viewBox="0 0 300 195" aria-label="A mended bowl with gold seams">
+    <defs>
+      <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3B4A57"/><stop offset="1" stop-color="#26313A"/>
+      </linearGradient>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#F1D47A"/><stop offset="0.5" stop-color="#C49A2C"/><stop offset="1" stop-color="#F1D47A"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="150" cy="182" rx="95" ry="9" fill="#E4D9C6"/>
+    <path d="M30 60 Q150 85 270 60 Q262 150 190 170 Q150 178 110 170 Q38 150 30 60 Z" fill="url(#bowl)"/>
+    <ellipse cx="150" cy="60" rx="120" ry="22" fill="#4C5D6B"/>
+    <ellipse cx="150" cy="62" rx="108" ry="17" fill="#1E272E"/>
+    <path d="M95 76 L108 98 L101 118 L118 140 L112 168" stroke="url(#g)" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M108 98 L140 104 L158 92 L190 98" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M158 92 L165 122 L150 146 L162 175" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M205 80 L222 106 L214 128 L236 150" stroke="url(#g)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <h1>Mend</h1>
+  <div class="tag">Every crack has a story.</div>
+  <p class="for">A short overview of the competition, our project and our team, prepared for the person kindly considering lending us a Meta Quest 3.</p>
+  <div class="meta">Ahammad Shawki and Mohammad Ashfaqul Hasan<br>CSE, Bangladesh University of Engineering and Technology (BUET) &nbsp;|&nbsp; October 2026</div>
+</section>
+
+<!-- PAGE 2: THE COMPETITION -->
+<section class="page">
+  <div class="kicker">1. The competition</div>
+  <h2>A $1 million competition run by Meta</h2>
+  <p class="lead">The Meta VR Start Developer Competition 2026 invites developers worldwide to build new apps for Meta Quest headsets that are controlled with your hands, not controllers. It is hosted on Devpost, the platform behind most major online hackathons.</p>
+
+  <div class="grid3" style="margin-bottom:7mm">
+    <div class="card"><div class="big">$1M</div><p class="small" style="margin-top:2mm">total prize pool across all tracks and awards</p></div>
+    <div class="card"><div class="big">$100k</div><p class="small" style="margin-top:2mm">for the winner of our track (Entertainment, New), $50k for the runner-up</p></div>
+    <div class="card"><div class="big">Nov 18</div><p class="small" style="margin-top:2mm">submission deadline. Winners announced around Dec 11, 2026</p></div>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <h3>What the judges look for</h3>
+      <ul class="check">
+        <li><b>Innovation:</b> an original idea that uses the headset's unique features</li>
+        <li><b>Experience design:</b> easy from the first second, with a reason to come back</li>
+        <li><b>Technical quality:</b> smooth, bug-free, uses hands and mixed reality well</li>
+        <li><b>Polish:</b> beautiful art, sound and a clear demo video</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Why a real Quest 3 matters</h3>
+      <p>The judges test every entry on a <b>Meta Quest 3 or Quest 3S</b>. We can build most of the app in a desktop simulator, but only a real headset tells us:</p>
+      <ul class="check">
+        <li>how picking up objects with your hands actually feels</li>
+        <li>whether it runs smoothly (at least 60 frames per second)</li>
+        <li>how it looks in colour on a real table</li>
+        <li>and lets us record real footage for our video</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:7mm">
+    <h3>Extra awards we are aiming for ($25k each)</h3>
+    <span class="pill">Best First Five Minutes</span><span class="pill">Reason to Come Back</span><span class="pill">Boldest Original Concept</span><span class="pill">Accessibility Forward</span><span class="pill">Judge's Choice ($20k)</span>
+  </div>
+  <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Source: start-developer-competition-26.devpost.com</span></div>
+</section>
+
+<!-- PAGE 3: THE IDEA -->
+<section class="page">
+  <div class="kicker">2. Our project</div>
+  <h2>Mend: put a family's broken keepsakes back together, with your hands</h2>
+  <div class="quote">"Your grandmother has left you a box of broken things. Each one broke at a turning point in her family's life."</div>
+
+  <p>When you put on the headset, a small wooden box appears on <b>your real table</b>. Inside are the pieces of a broken tea cup. You pick them up with your bare hands, turn them, and fit them together. Every piece that clicks into place plays a short memory, spoken from inside the cup.</p>
+  <p>When the cup is whole, you trace its cracks with your fingertip and liquid gold follows, inspired by <b>kintsugi</b>, the Japanese art of repairing pottery with gold. The mended cup goes on a shelf that <b>stays in your room</b>, and a new keepsake waits for you the next day.</p>
+
+  <div class="loop">
+    <div class="step">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#E2D8C6" stroke-width="2"/><rect x="26" y="44" width="48" height="26" rx="3" fill="#B4614A"/><path d="M24 44 L50 32 L76 44 Z" fill="#9A4F3B"/><rect x="44" y="50" width="12" height="5" rx="1" fill="#E9D49A"/></svg>
+      <b>Open the box</b><span>It appears on your real table</span>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#E2D8C6" stroke-width="2"/><path d="M28 40 L48 36 L44 62 L30 58 Z" fill="#3B4A57"/><path d="M56 34 L74 40 L70 60 L52 64 Z" fill="#3B4A57"/><path d="M47 37 L54 35" stroke="#C49A2C" stroke-width="2.5" stroke-dasharray="2 3"/></svg>
+      <b>Fit the pieces</b><span>Pick up, turn and click them in</span>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#E2D8C6" stroke-width="2"/><path d="M32 46 Q50 52 68 46 L64 66 Q50 72 36 66 Z" fill="#3B4A57"/><path d="M74 38 Q80 46 74 54 M80 32 Q90 46 80 60" stroke="#C49A2C" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <b>Hear a memory</b><span>The voice comes from the object</span>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#E2D8C6" stroke-width="2"/><path d="M30 42 Q50 48 70 42 L66 66 Q50 72 34 66 Z" fill="#3B4A57"/><path d="M42 45 L46 56 L42 68 M46 56 L58 54 L60 46" stroke="#E9C25A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <b>Trace the gold</b><span>Your fingertip fills the cracks</span>
+    </div>
+    <div class="step">
+      <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFFDF8" stroke="#E2D8C6" stroke-width="2"/><rect x="22" y="60" width="56" height="4" rx="1" fill="#9A4F3B"/><path d="M28 48 Q35 51 42 48 L41 59 L29 59 Z" fill="#3B4A57"/><rect x="48" y="44" width="10" height="15" rx="3" fill="#B4614A"/><path d="M62 52 Q68 54 74 52 L73 59 L63 59 Z" fill="#3B4A57"/><path d="M33 50 L35 57 M66 53 L68 58" stroke="#E9C25A" stroke-width="1.6"/></svg>
+      <b>Keep it</b><span>A shelf that stays in your room</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Seven keepsakes, one family</h3>
+      <p class="small" style="font-size:9.5pt;color:var(--ink)">A tea cup, a clay bird, a dinner plate, a teapot, a vase, a child's bowl and, finally, the grandmother's own rice bowl. Together they tell the story of three generations. The last bowl has no voice: it waits for a memory of your own.</p>
+    </div>
+    <div class="card">
+      <h3>Why it only works in VR</h3>
+      <ul class="check" style="font-size:9.5pt">
+        <li>You hold and turn real-feeling pieces with your hands</li>
+        <li>It happens on your own table, in your own room</li>
+        <li>The shelf is still there tomorrow</li>
+        <li>Memories come from the object itself, in 3D sound</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Calm, seated, about 5 to 10 minutes a day. No controllers.</span></div>
+</section>
+
+<!-- PAGE 4: WHY WE CAN WIN -->
+<section class="page">
+  <div class="kicker">3. Why we think we can win</div>
+  <h2>We studied all 653 entries from last year before choosing</h2>
+  <p class="lead">We collected every project from last year's competition and their 32 winners, then tested more than ten ideas against the judging rules before settling on Mend.</p>
+
+  <div class="grid2" style="margin-bottom:6mm">
+    <div>
+      <h3>Last year's entries by type</h3>
+      <div class="bar-row"><span>Games</span><div class="bar"><i style="width:58%"></i></div><b>~58%</b></div>
+      <div class="bar-row"><span>Lifestyle and productivity</span><div class="bar"><i style="width:20%"></i></div><b>~20%</b></div>
+      <div class="bar-row"><span><b>Entertainment (our track)</b></span><div class="bar"><i class="hl" style="width:16%"></i></div><b>~16%</b></div>
+      <p class="small" style="margin-top:2mm">Entertainment pays the same top prize as Games ($100k) with roughly a quarter of the competition.</p>
+    </div>
+    <div>
+      <h3>What we found</h3>
+      <ul class="check">
+        <li>Winners had <b>one magical hand interaction</b> at their core. Ours: fitting pieces and tracing gold.</li>
+        <li>Only about <b>10 of 653</b> entries were emotional stories. Very few people build this kind of experience.</li>
+        <li>No public VR app does kintsugi with family stories, mixed reality and a shelf that stays in your room.</li>
+        <li>Crowded themes (shooters, fitness, meditation, music) are exactly what we avoided.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Our own scorecard (out of 10, honest self-assessment)</h3>
+  <div style="margin:3mm 0 5mm">
+    <div class="bar-row"><span>Experience design</span><div class="bar"><i class="hl" style="width:90%"></i></div><b>9.0</b></div>
+    <div class="bar-row"><span>Polish and presentation</span><div class="bar"><i class="hl" style="width:90%"></i></div><b>9.0</b></div>
+    <div class="bar-row"><span>Easy to demonstrate</span><div class="bar"><i class="hl" style="width:90%"></i></div><b>9.0</b></div>
+    <div class="bar-row"><span>Technical (with a Quest 3)</span><div class="bar"><i class="hl" style="width:88%"></i></div><b>8.8</b></div>
+    <div class="bar-row"><span>Innovation</span><div class="bar"><i class="hl" style="width:85%"></i></div><b>8.5</b></div>
+    <div class="bar-row"><span>Technical (without a headset)</span><div class="bar"><i style="width:75%"></i></div><b>7.5</b></div>
+  </div>
+
+  <div class="card">
+    <h3>What the Quest 3 changes</h3>
+    <p>Last year, an average entry had about a <b>1 in 20</b> chance of winning a prize (32 winners out of 653). With a Quest 3 for testing and filming, we estimate Mend's chance of winning a prize at roughly <b>1 in 5</b>, about four times the average. It is not guaranteed, but it is a real shot, and the headset is the single biggest thing that moves the odds.</p>
+  </div>
+  <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Estimates are our own, based on last year's public results.</span></div>
+</section>
+
+<!-- PAGE 5: WHO WE ARE -->
+<section class="page">
+  <div class="kicker">4. Who we are</div>
+  <h2>Two BUET CSE students who build and win hackathons</h2>
+  <p class="lead">We take part in international hackathons regularly, usually online on Devpost, and we have won several of them together and separately. Our work is public on GitHub and Devpost.</p>
+
+  <div class="card" style="margin-bottom:6mm">
+    <div class="person">
+      <div class="avatar">AS</div>
+      <div>
+        <h3>Ahammad Shawki <span class="small" style="font-family:Inter">| team lead</span></h3>
+        <p class="small" style="color:var(--ink)">CSE undergraduate at BUET. Over 6 years of open-source development. Works on AI agents, full-stack apps, testing and model evaluation.</p>
+        <ul class="wins small" style="color:var(--ink)">
+          <li><b>Grand Prize</b>, FLIR App Challenge 2025 to 2026 (SolarSnap)</li>
+          <li><b>Best Overall Project</b>, ML Empowerment Build Challenge 2.0 (CADENCE, Parkinson's voice screening)</li>
+          <li><b>Winner</b>, ERNIE AI Developer Challenge by Baidu (Doclyst)</li>
+          <li><b>Winner</b>, Agents for Humans Hackathon (Shoulder)</li>
+          <li><b>Honourable mention and finalist</b>, LMA EDGE Hackathon, presented in London (Coven)</li>
+        </ul>
+        <p class="small">ahammadshawki8.github.io &nbsp;|&nbsp; github.com/ahammadshawki8 &nbsp;|&nbsp; devpost.com/ahammadshawki8 &nbsp;|&nbsp; linkedin.com/in/ahammadshawki8</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:6mm">
+    <div class="person">
+      <div class="avatar">AH</div>
+      <div>
+        <h3>Mohammad Ashfaqul Hasan <span class="small" style="font-family:Inter">| developer</span></h3>
+        <p class="small" style="color:var(--ink)">CSE undergraduate at BUET. Builds AI agents, mobile apps and games (including Godot projects).</p>
+        <ul class="wins small" style="color:var(--ink)">
+          <li><b>Winner</b>, Agents for Humans Hackathon, Everyday Agents and Golden Agent (Shoulder)</li>
+          <li><b>Winner</b>, ERNIE AI Developer Challenge by Baidu (Doclyst)</li>
+          <li><b>Winning team</b>, Storyblok x Code and Coffee Hackathon 2025 (GameBlok)</li>
+        </ul>
+        <p class="small">github.com/ashfaqstu &nbsp;|&nbsp; devpost.com/ashfaqstu</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card" style="text-align:center"><div class="big">6+</div><p class="small" style="margin-top:2mm">international hackathon wins between us</p></div>
+    <div class="card" style="text-align:center"><div class="big">20+</div><p class="small" style="margin-top:2mm">hackathon projects on Devpost</p></div>
+    <div class="card" style="text-align:center"><div class="big">Public</div><p class="small" style="margin-top:2mm">our projects are on GitHub and Devpost for you to check</p></div>
+  </div>
+  <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Project repository: github.com/ahammadshawki8/mend</span></div>
+</section>
+
+<!-- PAGE 6: THE ASK -->
+<section class="page">
+  <div class="kicker">5. What we are asking for</div>
+  <h2>A Quest 3 for 1 to 2 days, treated with care</h2>
+  <p class="lead">We will build everything we can in the simulator first, so every hour with the headset counts. Ideally we would borrow it on two short occasions; one 2-day block also works.</p>
+
+  <div class="tl">
+    <div class="axis"></div>
+    <div class="mk" style="left:4%"><span class="top">Today</span><div class="dot"></div><span class="d">Oct 17</span>Build starts</div>
+    <div class="mk q" style="left:47%"><span class="top gold">Quest day 1</span><div class="dot"></div><span class="d">about Nov 1</span>Feel and speed test</div>
+    <div class="mk q" style="left:83%"><span class="top gold">Quest day 2</span><div class="dot"></div><span class="d">about Nov 13</span>Final test, filming</div>
+    <div class="mk" style="left:97%"><span class="top">Deadline</span><div class="dot"></div><span class="d">Nov 18</span>Submit</div>
+  </div>
+
+  <div class="grid2" style="margin-top:6mm">
+    <div class="card">
+      <h3>Our promise for the headset</h3>
+      <ul class="check">
+        <li>Kept in its case, lenses covered and away from sunlight</li>
+        <li>Used only by the two of us, indoors, at a desk</li>
+        <li>Returned on time, clean and fully charged</li>
+        <li>We can meet in person and sign a simple written note with our names and contact details</li>
+        <li>If anything is damaged while with us, we take responsibility</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What you get</h3>
+      <ul class="check">
+        <li>Your name in the project credits (if you want)</li>
+        <li>Early access to try Mend yourself</li>
+        <li>The option to <b>join the team</b>, with a share of any prize money agreed in writing beforehand</li>
+        <li>Or a rental fee for the 2 days, if you prefer that</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6mm; text-align:center">
+    <p style="font-family:Fraunces,Georgia,serif;font-size:15pt;margin-bottom:2mm">Thank you for considering it.</p>
+    <p class="small" style="margin:0">Questions are very welcome. Reply in our message thread, or reach us through the profiles on the previous page.<br>Follow the project at github.com/ahammadshawki8/mend</p>
+  </div>
+  <div class="footer"><span>Mend | Overview for our Quest 3 lender</span><span>Ahammad Shawki and Mohammad Ashfaqul Hasan, BUET CSE</span></div>
+</section>
+
+</body>
+</html>
